@@ -27,3 +27,12 @@ function preparePostData(dataObject) {
   console.log(postArray);
   return postArray;
 }
+
+function viewImage(image) {
+  console.log("showImage");
+  const imageHTML = /*HTML*/ `<article class="grid-iteam">
+  <image src="${image.image}"></image>
+  <h2>${image.title}</h2>
+  </article>`;
+  document.querySelector("#image").insertAdjacentHTML("beforeend", imageHTML);
+}
