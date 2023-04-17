@@ -6,7 +6,10 @@ const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.fireba
 
 async function initApp() {
   console.log("initApp is running");
-  getPosts();
+  let posts = await getPosts();
+  for (let textShow of posts) {
+    viewImage(textShow);
+  }
 }
 
 async function getPosts() {
@@ -34,5 +37,5 @@ function viewImage(image) {
   <image src="${image.image}"></image>
   <h2>${image.title}</h2>
   </article>`;
-  document.querySelector("#image").insertAdjacentHTML("beforeend", imageHTML);
+  document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
 }
