@@ -2,12 +2,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   font-size: 1em;
-  background-color: antiquewhite;
+  /* background-image: url(billeder/API_3.webp); */
+  /* background-color: rgb(34, 33, 33); */
+  background-color: orange;
 }
 
 h1 {
+  color: rgb(34, 33, 33);
+  text-decoration: underline;
   font-size: 2em;
   text-align: center;
+}
+
+h2 {
+  color: white;
+  text-decoration-color: orange;
+  text-emphasis-style: 10px;
+  text-decoration-line: underline;
 }
 
 img {
@@ -16,22 +27,28 @@ img {
 }
 
 header {
-  background-color: aqua;
+  background-color: wheat;
 }
 
-/* article {
-} */
+article {
+  background-color: rgb(34, 33, 33);
+}
 
 footer {
-  padding-top: 24em;
+  color: gray;
+  padding-top: 1em;
   text-align: center;
+  text-decoration: underline;
 }
 
 .grid-container {
+  z-index: 999;
+  color: orange;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;
   padding: 2em;
+  text-align: center;
 }
 
 @media (min-width: 600px) {
