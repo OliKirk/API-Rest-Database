@@ -11,7 +11,11 @@ async function initApp() {
     showPost(textShow);
   }
 
-  // parseJSONString();
+  const postobject = parseJSONString('{"title": "This is my awesome title", "image": "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app", "description":"IM BIG" }');
+  console.log(postobject);
+
+  // stringify();
+  // console.log(stringify);
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
@@ -72,12 +76,17 @@ function closeDialog() {
   document.querySelector("#dialog-list").remove();
 }
 
+function parseJSONString(jsonString) {
+  const parsed = JSON.parse(jsonString);
+  console.log(parsed);
+  return parsed;
+}
+
+function stringify(object) {
+  const parsed = JSON.parse(jsonString);
+  return jsonString;
+}
+
 // function createPost(title, body image) {
 
-// }
-
-// function parseJSONString() {
-//   const parsed = JSON.parse(parseString);
-//   console.log(parsed);
-//   return parsed;
 // }
