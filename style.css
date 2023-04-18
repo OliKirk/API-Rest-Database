@@ -24,6 +24,7 @@ h2 {
 img {
   width: 100%;
   height: auto;
+  border: solid orange;
 }
 
 header {
