@@ -87,6 +87,11 @@ function stringify(object) {
   return jsonString;
 }
 
-// function createPost(title, body image) {
-
-// }
+function createPost(title, description, image) {
+  const newPost = {
+    title: title,
+    description: description,
+    image: image,
+  };
+  console.log(newPost);
+}
