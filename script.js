@@ -11,6 +11,8 @@ async function initApp() {
     showPost(textShow);
   }
 
+  // parseJSONString();
+
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
       closeDialog();
@@ -72,4 +74,10 @@ function closeDialog() {
 
 // function createPost(title, body image) {
 
+// }
+
+// function parseJSONString() {
+//   const parsed = JSON.parse(parseString);
+//   console.log(parsed);
+//   return parsed;
 // }
