@@ -1,3 +1,4 @@
+/* ----------------- main styling -------------------*/
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -19,6 +20,7 @@ h2 {
   text-decoration-color: orange;
   text-emphasis-style: 10px;
   text-decoration-line: underline;
+  text-transform: capitalize;
 }
 
 img {
@@ -72,4 +74,68 @@ footer {
   .grid-container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+}
+
+button {
+  font-weight: 300;
+  font-size: 1em;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  color: orange;
+  background-color: rgb(34, 33, 33);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  width: 100%;
+  max-width: 380px;
+  display: grid;
+  margin: auto;
+}
+
+/*----------- dialog styling / pop-up window ----------------*/
+dialog {
+  border-color: orange;
+  background-color: rgb(34, 33, 33);
+  width: 65vw;
+  padding: 2em 1em;
+}
+
+dialog::backdrop {
+  background: rgb(172, 198, 201, 0.8);
+}
+
+.dialog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+dialog h3 {
+  color: white;
+  text-transform: capitalize;
+  /* text-decoration-line: underline;
+  text-decoration-color: orange; */
+}
+
+dialog h4 {
+  margin-bottom: 0;
+}
+dialog ul {
+  margin: 0.5em 0 1em;
+  padding-inline-start: 1.5em;
+}
+dialog p {
+  margin: 0.5em 0 1em;
+}
+
+dialog li {
+  text-transform: capitalize;
+  color: white;
+  /* text-decoration-line: underline;
+  text-decoration-color: orange; */
+}
+
+dialog p {
+  color: white;
+  text-align: left;
 }

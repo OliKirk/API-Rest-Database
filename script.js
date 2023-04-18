@@ -2,14 +2,20 @@
 
 window.addEventListener("load", initApp);
 
-const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app/";
+const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app";
 
 async function initApp() {
   console.log("initApp is running");
   let posts = await getPosts();
   for (let textShow of posts) {
-    viewImage(textShow);
+    showPost(textShow);
   }
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeDialog();
+    }
+  });
 }
 
 async function getPosts() {
@@ -31,11 +37,39 @@ function preparePostData(dataObject) {
   return postArray;
 }
 
-function viewImage(image) {
+function showPost(image) {
   console.log("showImage");
-  const imageHTML = /*HTML*/ `<article class="grid-iteam">
+  const imageHTML =
+    /*HTML*/
+    `<article class="grid-iteam ikbu">
   <image src="${image.image}"></image>
   <h2>${image.title}</h2>
   </article>`;
   document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
+  document.querySelector("#øv article:last-child").addEventListener("click", clickPost);
+
+  function clickPost() {
+    let openPost = /*HTML*/ `
+      <article id="dialog-list">
+        <img src="${image.image}"></img>
+        <h2>${image.title}</h2>
+        <p>${image.description}</p>
+        <button id="close-btn">Close</button>
+      </article>
+    `;
+
+    document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
+    document.querySelector("#dialog").showModal(image);
+    document.querySelector("#dialog").scrollTop = 0;
+    document.querySelector("#close-btn").addEventListener("click", closeDialog);
+  }
 }
+
+function closeDialog() {
+  document.querySelector("#dialog").close();
+  document.querySelector("#dialog-list").remove();
+}
+
+// function createPost(title, body image) {
+
+// }
