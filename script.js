@@ -14,8 +14,8 @@ async function initApp() {
   const postobject = parseJSONString('{"title": "This is my awesome title", "image": "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app", "description":"IM BIG" }');
   console.log(postobject);
 
-  // stringify();
-  // console.log(stringify);
+  stringify();
+  console.log(stringify);
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
@@ -83,8 +83,8 @@ function parseJSONString(jsonString) {
 }
 
 function stringify(object) {
-  const parsed = JSON.parse(jsonString);
-  return jsonString;
+  const parsed = JSON.stringify(object);
+  return parsed;
 }
 
 function createPost(title, description, image) {
