@@ -30,10 +30,10 @@ async function initApp() {
 // Opret nyt post knap
 function createPostClicked() {}
 
-// opret ny user
+// Opret ny user
 function createUserClicked() {}
 
-// hent data
+// Hent data
 async function getPosts() {
   const response = await fetch(`${endpoint}/posts.json`); //posts.json is the data ressource
   const data = await response.json();
@@ -48,7 +48,7 @@ async function updatePostsGrid() {
   showPosts(posts); // show all posts (append to the DOM) with posts as argument
 }
 
-// update userGrid
+// Update userGrid
 function updateUserGrid() {}
 
 // Konvater data fra JSON object til et array
@@ -63,6 +63,7 @@ function preparePostData(dataObject) {
   return postArray;
 }
 
+// Viser alle posts
 async function showPosts(posts) {
   for (let textShow of posts) {
     showPost(textShow);
@@ -89,10 +90,12 @@ function showPost(postObject) {
   document.querySelector("#posts article:last-child .btn-delete").addEventListener("click", deleteClicked);
   document.querySelector("#posts article:last-child .btn-update").addEventListener("click", updateClicked);
 
+  // Hvad der sker når man klikke på delete
   function deleteClicked() {
     deletePost(postObject.id);
   }
 
+  // Hvad der sker når man klikker på update
   function updateClicked() {
     const title = `${postObject.title} Updated <3`;
     const body = "Her er jeg";
@@ -100,6 +103,7 @@ function showPost(postObject) {
     updatePostsGrid(postObject.id, title, body, image);
   }
 
+  // Hvad der sker når man klikker på Post
   function clickPost() {
     let openPost = /*HTML*/ `
       <article id="dialog-list">
@@ -110,6 +114,7 @@ function showPost(postObject) {
       </article>
     `;
 
+    // Når dialog åbnes Henter den JSON dataen, Ruller den til top, man kan klikke close button
     document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
     document.querySelector("#dialog").showModal(postObject);
     document.querySelector("#dialog").scrollTop = 0;
@@ -117,7 +122,7 @@ function showPost(postObject) {
   }
 }
 
-// Luk dialog (luk pop-UP Window)
+// Knap for at lukke dialog (luk pop-UP Window)
 function closeDialog() {
   document.querySelector("#dialog").close();
   document.querySelector("#dialog-list").remove();
@@ -136,6 +141,7 @@ function stringify(object) {
   return parsed;
 }
 
+// Hvad der sker når man creater et nyt post
 async function createPost(title, body, description, image) {
   const newPost = {
     title: title,
@@ -164,6 +170,7 @@ async function deletePost(id) {
   }
 }
 
+// Hvad der sker når man klikker på update
 async function updatePost(id, title, body, image) {
   const postToUpdate = { title, body, image };
   const json = JSON.stringify(postToUpdate);
@@ -175,5 +182,5 @@ async function updatePost(id, title, body, image) {
   }
 }
 
-// knap for at delte user
+// Knap for at delte user
 function deleteUser() {}
