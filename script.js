@@ -22,11 +22,15 @@ async function initApp() {
       closeDialog();
     }
   });
-  updatePostGrid();
-  updateUserGrid();
+  // updatePostGrid();
+  // updateUserGrid();
 }
 // Opret nyt post knap
 function createPostClicked() {}
+
+// opret ny user
+function createUserClicked() {}
+
 // hent data
 async function getPosts() {
   const response = await fetch(`${endpoint}/posts.json`); //posts.json is the data ressource
@@ -35,6 +39,13 @@ async function getPosts() {
   console.log(posts);
   return posts;
 }
+
+// Updatere post Grid
+function updatePostGrid() {}
+
+// update userGrid
+function updateUserGrid() {}
+
 // Konvater data fra JSON object til et array
 function preparePostData(dataObject) {
   const postArray = [];
@@ -51,9 +62,11 @@ function showPost(image) {
   console.log("showImage");
   const imageHTML =
     /*HTML*/
-    `<article class="grid-iteam ikbu">
+    `<article class="grid-iteam">
   <image src="${image.image}"></image>
   <h2>${image.title}</h2>
+  <p>${image.body}</p>
+<p>${image.uid}</p>
   </article>`;
   document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
   document.querySelector("#øv article:last-child").addEventListener("click", clickPost);
@@ -63,10 +76,12 @@ function showPost(image) {
       <article id="dialog-list">
         <img src="${image.image}"></img>
         <h2>${image.title}</h2>
-        <p>${image.description}</p>
+        <p>${image.body}</p>
         <button id="close-btn">Close</button>
       </article>
     `;
+    // Tilføj eventuelt
+    // <p>${image.description}</p> under body
 
     document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
     document.querySelector("#dialog").showModal(image);
@@ -79,6 +94,7 @@ function closeDialog() {
   document.querySelector("#dialog").close();
   document.querySelector("#dialog-list").remove();
 }
+
 // Parse JSON string
 function parseJSONString(jsonString) {
   const parsed = JSON.parse(jsonString);
@@ -94,8 +110,14 @@ function stringify(object) {
 function createPost(title, description, image) {
   const newPost = {
     title: title,
-    description: description,
+    body: body,
+    // description: description,
     image: image,
   };
   console.log(newPost);
 }
+// Kanp for at delete post
+function deletePost() {}
+
+// knap for at delte user
+function deleteUser() {}

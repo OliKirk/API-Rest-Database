@@ -24,9 +24,10 @@ h2 {
 }
 
 img {
-  width: 100%;
-  height: auto;
+  max-width: 100%;
+  max-height: 450px;
   border: solid orange;
+  object-fit: cover;
 }
 
 header {
@@ -101,15 +102,19 @@ dialog {
   background-color: rgb(34, 33, 33);
   width: 65vw;
   padding: 2em 1em;
+  text-align: center;
 }
 
 dialog::backdrop {
   background: rgb(172, 198, 201, 0.8);
 }
 
-.dialog-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.grid-iteam {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  text-align: center;
 }
 
 dialog h3 {
