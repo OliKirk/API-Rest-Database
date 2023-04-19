@@ -2,7 +2,7 @@
 
 window.addEventListener("load", initApp);
 
-const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app";
+const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app/posts/1mNVXMNbZWjKsiaTFsDw";
 
 // ============================= initApp ================================== //
 async function initApp() {
@@ -11,8 +11,8 @@ async function initApp() {
   let posts = await getPosts();
   showPosts(posts);
 
-  const postobject = parseJSONString('{"title": "This is my awesome title", "image": "https://images.unsplash.com/photo-1641876749963-550554c7258d", "description":"IM BIG" }');
-  console.log(postobject);
+  const postObject = parseJSONString('{"title": "This is my awesome title", "image": "https://images.unsplash.com/photo-1641876749963-550554c7258d", "description":"IM BIG" }');
+  console.log(postObject);
 
   stringify();
   console.log(stringify);
@@ -71,54 +71,51 @@ async function showPosts(posts) {
 }
 
 //  Viser data via en DOM manipulation
-function showPost(image) {
-  console.log("showImage");
-  const imageHTML =
+function showPost(postObject) {
+  console.log("showPostObject");
+  const postObjectHTML =
     /*HTML*/
     `<article class="grid-iteam">
-  <image src="${image.image}"></image>
-  <h2>${image.title}</h2>
-  <p>${image.body}</p>
-<p>${image.uid}</p>
+  <image src="${postObject.image}">
+  <h2>${postObject.title}</h2>
+  <p>${postObject.body}</p>
+<p>${postObject.uid}</p>
 <div class="btns">
 <button class="btn-update">Update</button>
 <button class="btn-delete">Delete</button>
 </div>
 </article>`;
-  document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
-  document.querySelector("#øv article:last-child").addEventListener("click", clickPost);
-
-  document.querySelector("#øv article:last-child .btn-delete").addEventListener("click", deleteClicked);
-  document.querySelector("#øv article:last-child .btn-update").addEventListener("click", updateClicked);
+  document.querySelector("#posts").insertAdjacentHTML("beforeend", postObjectHTML);
+  document.querySelector("#posts article:last-child").addEventListener("click", clickPost);
+  document.querySelector("#posts article:last-child .btn-delete").addEventListener("click", deleteClicked);
+  document.querySelector("#posts article:last-child .btn-update").addEventListener("click", updateClicked);
 
   function deleteClicked() {
-    deletePost(image.id);
+    deletePost(postObject.id);
   }
 
   function updateClicked() {
-    const title = `${image.title} Updated <3`;
+    const title = `${postObject.title} Updated <3`;
     const body = "Her er jeg";
     const image = "https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg";
-    updatePostsGrid(image.id, title, body, image);
+    updatePostsGrid(postObject.id, title, body, image);
   }
+}
 
-  function clickPost() {
-    let openPost = /*HTML*/ `
+function clickPost() {
+  let openPost = /*HTML*/ `
       <article id="dialog-list">
-      <h2>${image.title}</h2>
-        <img src="${image.image}"></img>
-        <p>${image.body}</p>
+      <h2>${postObject.title}</h2>
+        <img src="${postObject.image}">
+        <p>${postObject.body}</p>
         <button id="close-btn">Close</button>
       </article>
     `;
-    // Tilføj eventuelt
-    // <p>${image.description}</p> under body
 
-    document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
-    document.querySelector("#dialog").showModal(image);
-    document.querySelector("#dialog").scrollTop = 0;
-    document.querySelector("#close-btn").addEventListener("click", closeDialog);
-  }
+  document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
+  document.querySelector("#dialog").showModal(postObject);
+  document.querySelector("#dialog").scrollTop = 0;
+  document.querySelector("#close-btn").addEventListener("click", closeDialog);
 }
 
 // Luk dialog (luk pop-UP Window)
@@ -140,8 +137,7 @@ function stringify(object) {
   return parsed;
 }
 
-// Opret Post med title, image og description
-async function createPost(title, description, image) {
+async function createPost(title, body, description, image) {
   const newPost = {
     title: title,
     body: body,
@@ -163,7 +159,7 @@ async function createPost(title, description, image) {
 async function deletePost(id) {
   const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
   if (response.ok) {
-    console.log("New post suuccesfull deleted from Firebase!");
+    console.log("New post succesfull deleted from Firebase!");
     updatePostsGrid();
   }
 }
