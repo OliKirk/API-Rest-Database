@@ -4,6 +4,7 @@ window.addEventListener("load", initApp);
 
 const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app";
 
+// ============================= initApp ================================== //
 async function initApp() {
   console.log("initApp is running");
 
@@ -24,6 +25,9 @@ async function initApp() {
   updatePostsGrid();
   // updateUserGrid();
 }
+
+// ============================= ======= ================================== //
+
 // Opret nyt post knap
 function createPostClicked() {}
 
@@ -84,18 +88,18 @@ function showPost(image) {
   document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
   document.querySelector("#øv article:last-child").addEventListener("click", clickPost);
 
-  document.querySelector("#posts article:last-childt .btn-delete").addEventListener("click", deleteClicked);
-  document.querySelector("#posts article:last-childt .btn-update").addEventListener("click", updateClicked);
+  document.querySelector("#øv article:last-child .btn-delete").addEventListener("click", deleteClicked);
+  document.querySelector("#øv article:last-child .btn-update").addEventListener("click", updateClicked);
 
   function deleteClicked() {
-    deletePost(postObject.id);
+    deletePost(image.id);
   }
 
   function updateClicked() {
-    const title = `${postObject.title} Updated <3`;
+    const title = `${image.title} Updated <3`;
     const body = "Her er jeg";
     const image = "https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg";
-    updatePostsGrid(postObject.id, title, body, image);
+    updatePostsGrid(image.id, title, body, image);
   }
 
   function clickPost() {
@@ -160,6 +164,17 @@ async function deletePost(id) {
   const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
   if (response.ok) {
     console.log("New post suuccesfull deleted from Firebase!");
+    updatePostsGrid();
+  }
+}
+
+async function updatePost(id, title, body, image) {
+  const postToUpdate = { title, body, image };
+  const json = JSON.stringify(postToUpdate);
+  const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "PUT", body: json });
+
+  if (response.ok) {
+    console.log("Post succesfully updated in Firebase!");
     updatePostsGrid();
   }
 }
