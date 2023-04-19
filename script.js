@@ -7,7 +7,7 @@ const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.fireba
 // ============================= initApp ================================== //
 async function initApp() {
   console.log("initApp is running");
-
+  updatePostsGrid();
   let posts = await getPosts();
   showPosts(posts);
 
@@ -22,7 +22,6 @@ async function initApp() {
       closeDialog();
     }
   });
-  updatePostsGrid();
   // updateUserGrid();
 }
 
@@ -100,10 +99,9 @@ function showPost(postObject) {
     const image = "https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg";
     updatePostsGrid(postObject.id, title, body, image);
   }
-}
 
-function clickPost() {
-  let openPost = /*HTML*/ `
+  function clickPost() {
+    let openPost = /*HTML*/ `
       <article id="dialog-list">
       <h2>${postObject.title}</h2>
         <img src="${postObject.image}">
@@ -112,10 +110,11 @@ function clickPost() {
       </article>
     `;
 
-  document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
-  document.querySelector("#dialog").showModal(postObject);
-  document.querySelector("#dialog").scrollTop = 0;
-  document.querySelector("#close-btn").addEventListener("click", closeDialog);
+    document.querySelector("#dialog").insertAdjacentHTML("beforeend", openPost);
+    document.querySelector("#dialog").showModal(postObject);
+    document.querySelector("#dialog").scrollTop = 0;
+    document.querySelector("#close-btn").addEventListener("click", closeDialog);
+  }
 }
 
 // Luk dialog (luk pop-UP Window)
@@ -160,6 +159,7 @@ async function deletePost(id) {
   const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
   if (response.ok) {
     console.log("New post succesfull deleted from Firebase!");
+    console.log(response);
     updatePostsGrid();
   }
 }
