@@ -74,8 +74,8 @@ function showPost(image) {
   function clickPost() {
     let openPost = /*HTML*/ `
       <article id="dialog-list">
+      <h2>${image.title}</h2>
         <img src="${image.image}"></img>
-        <h2>${image.title}</h2>
         <p>${image.body}</p>
         <button id="close-btn">Close</button>
       </article>
