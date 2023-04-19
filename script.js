@@ -6,12 +6,11 @@ const endpoint = "https://my-api-database-ccaf8-default-rtdb.europe-west1.fireba
 
 async function initApp() {
   console.log("initApp is running");
-  let posts = await getPosts();
-  for (let textShow of posts) {
-    showPost(textShow);
-  }
 
-  const postobject = parseJSONString('{"title": "This is my awesome title", "image": "https://my-api-database-ccaf8-default-rtdb.europe-west1.firebasedatabase.app", "description":"IM BIG" }');
+  let posts = await getPosts();
+  showPosts(posts);
+
+  const postobject = parseJSONString('{"title": "This is my awesome title", "image": "https://images.unsplash.com/photo-1641876749963-550554c7258d", "description":"IM BIG" }');
   console.log(postobject);
 
   stringify();
@@ -22,7 +21,7 @@ async function initApp() {
       closeDialog();
     }
   });
-  // updatePostGrid();
+  updatePostsGrid();
   // updateUserGrid();
 }
 // Opret nyt post knap
@@ -41,7 +40,10 @@ async function getPosts() {
 }
 
 // Updatere post Grid
-function updatePostGrid() {}
+async function updatePostsGrid() {
+  const posts = await getPosts(); // get posts from rest endpoint and save in variable
+  showPosts(posts); // show all posts (append to the DOM) with posts as argument
+}
 
 // update userGrid
 function updateUserGrid() {}
@@ -57,6 +59,13 @@ function preparePostData(dataObject) {
   console.log(postArray);
   return postArray;
 }
+
+async function showPosts(posts) {
+  for (let textShow of posts) {
+    showPost(textShow);
+  }
+}
+
 //  Viser data via en DOM manipulation
 function showPost(image) {
   console.log("showImage");
@@ -67,9 +76,27 @@ function showPost(image) {
   <h2>${image.title}</h2>
   <p>${image.body}</p>
 <p>${image.uid}</p>
-  </article>`;
+<div class="btns">
+<button class="btn-update">Update</button>
+<button class="btn-delete">Delete</button>
+</div>
+</article>`;
   document.querySelector("#øv").insertAdjacentHTML("beforeend", imageHTML);
   document.querySelector("#øv article:last-child").addEventListener("click", clickPost);
+
+  document.querySelector("#posts article:last-childt .btn-delete").addEventListener("click", deleteClicked);
+  document.querySelector("#posts article:last-childt .btn-update").addEventListener("click", updateClicked);
+
+  function deleteClicked() {
+    deletePost(postObject.id);
+  }
+
+  function updateClicked() {
+    const title = `${postObject.title} Updated <3`;
+    const body = "Her er jeg";
+    const image = "https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg";
+    updatePostsGrid(postObject.id, title, body, image);
+  }
 
   function clickPost() {
     let openPost = /*HTML*/ `
@@ -89,6 +116,7 @@ function showPost(image) {
     document.querySelector("#close-btn").addEventListener("click", closeDialog);
   }
 }
+
 // Luk dialog (luk pop-UP Window)
 function closeDialog() {
   document.querySelector("#dialog").close();
@@ -101,23 +129,40 @@ function parseJSONString(jsonString) {
   console.log(parsed);
   return parsed;
 }
+
 // Parse JSON string via stringify
 function stringify(object) {
   const parsed = JSON.stringify(object);
   return parsed;
 }
+
 // Opret Post med title, image og description
-function createPost(title, description, image) {
+async function createPost(title, description, image) {
   const newPost = {
     title: title,
     body: body,
-    // description: description,
+    description: description,
     image: image,
   };
   console.log(newPost);
+  const postAsJson = JSON.stringify(newPost);
+  const response = await fetch(`${endpoint}/posts.json`, {
+    method: "POST",
+    body: postAsJson,
+  });
+  const data = await response.json();
+  console.log(data);
+  updatePostsGrid(); // update the grid of posts: get and show all posts
 }
+
 // Kanp for at delete post
-function deletePost() {}
+async function deletePost(id) {
+  const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
+  if (response.ok) {
+    console.log("New post suuccesfull deleted from Firebase!");
+    updatePostsGrid();
+  }
+}
 
 // knap for at delte user
 function deleteUser() {}
