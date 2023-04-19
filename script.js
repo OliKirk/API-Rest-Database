@@ -102,7 +102,7 @@ function showPost(postObject) {
     const title = `${postObject.title} Updated <3`;
     const body = "Her er jeg";
     const image = "https://live.staticflickr.com/8638/16315424727_c6347f2b58_b.jpg";
-    updatePostsGrid(postObject.id, title, body, image);
+    updatePost(postObject.id, title, body, image);
   }
 
   // Hvad der sker når man klikker på Post
@@ -167,7 +167,6 @@ async function deletePost(id) {
   const response = await fetch(`${endpoint}/posts/${id}.json`, { method: "DELETE" });
   if (response.ok) {
     console.log("New post succesfull deleted from Firebase!");
-    console.log(response);
     updatePostsGrid();
   }
 }
