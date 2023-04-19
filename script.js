@@ -64,9 +64,11 @@ function preparePostData(dataObject) {
 }
 
 // Viser alle posts
-async function showPosts(posts) {
-  for (let textShow of posts) {
-    showPost(textShow);
+function showPosts(listOfPosts) {
+  document.querySelector("#posts").innerHTML = "";
+
+  for (const post of listOfPosts) {
+    showPost(post);
   }
 }
 
