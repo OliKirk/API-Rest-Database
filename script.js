@@ -22,8 +22,12 @@ async function initApp() {
       closeDialog();
     }
   });
+  updatePostGrid();
+  updateUserGrid();
 }
-
+// Opret nyt post knap
+function createPostClicked() {}
+// hent data
 async function getPosts() {
   const response = await fetch(`${endpoint}/posts.json`); //posts.json is the data ressource
   const data = await response.json();
@@ -31,7 +35,7 @@ async function getPosts() {
   console.log(posts);
   return posts;
 }
-
+// Konvater data fra JSON object til et array
 function preparePostData(dataObject) {
   const postArray = [];
   for (const key in dataObject) {
@@ -42,7 +46,7 @@ function preparePostData(dataObject) {
   console.log(postArray);
   return postArray;
 }
-
+//  Viser data via en DOM manipulation
 function showPost(image) {
   console.log("showImage");
   const imageHTML =
@@ -70,23 +74,23 @@ function showPost(image) {
     document.querySelector("#close-btn").addEventListener("click", closeDialog);
   }
 }
-
+// Luk dialog (luk pop-UP Window)
 function closeDialog() {
   document.querySelector("#dialog").close();
   document.querySelector("#dialog-list").remove();
 }
-
+// Parse JSON string
 function parseJSONString(jsonString) {
   const parsed = JSON.parse(jsonString);
   console.log(parsed);
   return parsed;
 }
-
+// Parse JSON string via stringify
 function stringify(object) {
   const parsed = JSON.stringify(object);
   return parsed;
 }
-
+// Opret Post med title, image og description
 function createPost(title, description, image) {
   const newPost = {
     title: title,
